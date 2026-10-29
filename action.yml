@@ -1,0 +1,53 @@
+name: 'EU Compliance & Factur-X Electronic Invoicing Validator'
+description: 'Zero-dependency CI/CD validator for Factur-X / EN 16931 e-invoices, EU AI Act compliance, and NIS2 readiness.'
+author: 'EroNiiChan'
+branding:
+  icon: 'check-circle'
+  color: 'blue'
+
+inputs:
+  mode:
+    description: 'Audit mode to execute: validate-facturx, audit-ai, check-nis2'
+    required: false
+    default: 'validate-facturx'
+  path:
+    description: 'Path to XML file, directory of invoices, or codebase'
+    required: false
+    default: '.'
+  output-file:
+    description: 'File path to save the generated compliance markdown report'
+    required: false
+    default: 'eu-compliance-report.md'
+  fail-on-error:
+    description: 'Fail build (exit code 1) if non-compliant invoices or high-risk AI are detected (true/false)'
+    required: false
+    default: 'true'
+
+outputs:
+  compliance-status:
+    description: 'Overall European compliance rating (COMPLIANT, WARNING, NON_COMPLIANT)'
+    value: ${{ steps.compliance.outputs.compliance-status }}
+  issues-count:
+    description: 'Number of detected validation errors or regulatory gaps'
+    value: ${{ steps.compliance.outputs.issues-count }}
+  report-path:
+    description: 'Path where the compliance markdown report was saved'
+    value: ${{ steps.compliance.outputs.report-path }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Run EU Compliance & Factur-X Audit
+      id: compliance
+      shell: bash
+      run: |
+        python "${{ github.action_path }}/run_action.py" \
+          --mode "${{ inputs.mode }}" \
+          --path "${{ inputs.path }}" \
+          --output "${{ inputs.output-file }}" \
+          --fail-on-error "${{ inputs.fail-on-error }}"

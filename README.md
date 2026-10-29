@@ -1,6 +1,7 @@
-# 🇪🇺 EU Compliance & Factur-X MCP Server
+# 🇪🇺 EU Compliance & Factur-X MCP Server & GitHub Action
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![GitHub Action](https://img.shields.io/badge/GitHub%20Action-Marketplace-purple.svg?logo=githubactions)](https://github.com/EroNiiChan/mcp-eu-compliance)
 [![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-brightgreen.svg)](https://www.python.org/)
 [![MCP](https://img.shields.io/badge/MCP-JSON--RPC%202.0-purple.svg)](https://modelcontextprotocol.io/)
 [![Zero-Dependency](https://img.shields.io/badge/dependencies-0%20external-success.svg)](mcp_eu_compliance.py)
@@ -8,7 +9,42 @@
 [![EN 16931](https://img.shields.io/badge/Standard-EN%2016931%20%2F%20Factur--X-blueviolet.svg)](https://fnfe-mpe.org/factur-x/)
 [![Sponsors](https://img.shields.io/badge/sponsor-EroNiiChan-pink.svg)](https://github.com/sponsors/EroNiiChan)
 
-> **Zero-dependency Model Context Protocol (MCP) server** empowering AI coding environments (**Claude Desktop, Cursor, Antigravity, Cline, Windsurf**) to audit AI systems against the **EU AI Act**, generate **EN 16931 / Factur-X electronic invoices**, and assess **GDPR & NIS2 readiness** directly from your IDE prompt.
+> **Zero-dependency Model Context Protocol (MCP) server & GitHub Action** empowering AI coding environments (**Claude Desktop, Cursor, Antigravity**) and **CI/CD pipelines** to validate **EN 16931 / Factur-X electronic invoices**, audit AI systems against the **EU AI Act**, and evaluate **GDPR & NIS2 readiness** directly in your workflow.
+
+---
+
+## 🚀 Quick Start: GitHub Actions CI/CD
+
+Automatically validate Factur-X XML invoices in your billing, e-commerce, or ERP repo:
+
+```yaml
+name: Validate Factur-X E-Invoices
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  validate-invoices:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Validate Factur-X / EN 16931 Invoices
+        uses: EroNiiChan/mcp-eu-compliance@v1
+        with:
+          mode: 'validate-facturx'
+          path: './invoices'
+          fail-on-error: 'true'
+          output-file: 'facturx-compliance-report.md'
+```
+
+*Outputs markdown summary into `$GITHUB_STEP_SUMMARY` and sets `$GITHUB_OUTPUT` variables (`compliance-status`, `issues-count`, `report-path`).*
+
+---
 
 ---
 
