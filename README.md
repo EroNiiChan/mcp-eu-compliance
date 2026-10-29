@@ -2,6 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![GitHub Action](https://img.shields.io/badge/GitHub%20Action-Marketplace-purple.svg?logo=githubactions)](https://github.com/EroNiiChan/mcp-eu-compliance)
+[![Awesome Actions](https://img.shields.io/badge/Awesome--Actions-Utility-blueviolet?logo=githubactions)](https://github.com/sdras/awesome-actions#utility)
 [![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-brightgreen.svg)](https://www.python.org/)
 [![MCP](https://img.shields.io/badge/MCP-JSON--RPC%202.0-purple.svg)](https://modelcontextprotocol.io/)
 [![Zero-Dependency](https://img.shields.io/badge/dependencies-0%20external-success.svg)](mcp_eu_compliance.py)
